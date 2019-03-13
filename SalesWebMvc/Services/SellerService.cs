@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMvc.Services
 {
@@ -27,8 +28,9 @@ namespace SalesWebMvc.Services
         }
         
         public Seller FindById(int id)
-        {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        {   
+            //a função "Include" faz a junção (join) entre duas tabelas
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
